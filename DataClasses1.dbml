@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Database1" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="عطاؤنا.My.MySettings" SettingsPropertyName="Database1ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Blood" Member="Bloods">
+    <Type Name="Blood">
+      <Column Name="IdBlood" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdDon" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BloodType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="HealthStatus" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Donation_Blood" Member="Donation" ThisKey="IdDon" OtherKey="IdDon" Type="Donation" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Con1" Member="Con1s">
+    <Type Name="Con1">
+      <Column Name="IdC" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdD" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Question" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Answer" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Doctor_Con1" Member="Doctor" ThisKey="IdD" OtherKey="IdD" Type="Doctor" IsForeignKey="true" />
+      <Association Name="user_Con1" Member="user" ThisKey="IdUser" OtherKey="IdUser" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Doctor" Member="Doctors">
+    <Type Name="Doctor">
+      <Column Name="IdD" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Major" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Doctor_Con1" Member="Con1s" ThisKey="IdD" OtherKey="IdD" Type="Con1" />
+      <Association Name="user_Doctor" Member="user" ThisKey="IdUser" OtherKey="IdUser" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Donation" Member="Donations">
+    <Type Name="Donation">
+      <Column Name="IdDon" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Region" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PhonNoDo" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="Donation_Blood" Member="Bloods" ThisKey="IdDon" OtherKey="IdDon" Type="Blood" />
+      <Association Name="Donation_Mosque" Member="Mosques" ThisKey="IdDon" OtherKey="IdDon" Type="Mosque" />
+      <Association Name="Donation_OtherDonation" Member="OtherDonations" ThisKey="IdDon" OtherKey="IdDon" Type="OtherDonation" />
+      <Association Name="user_Donation" Member="user" ThisKey="IdUser" OtherKey="IdUser" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Mosque" Member="Mosques">
+    <Type Name="Mosque">
+      <Column Name="IdM" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdDon" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TypeOfNeed" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Donation_Mosque" Member="Donation" ThisKey="IdDon" OtherKey="IdDon" Type="Donation" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OtherDonation" Member="OtherDonations">
+    <Type Name="OtherDonation">
+      <Column Name="IdO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdDon" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NumeOfProduct" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Found" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Donation_OtherDonation" Member="Donation" ThisKey="IdDon" OtherKey="IdDon" Type="Donation" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PlatForm" Member="PlatForms">
+    <Type Name="PlatForm">
+      <Column Name="IdPlat" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PlatFormName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Region" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Classification" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Links" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Association Name="PlatForm_point" Member="points" ThisKey="IdPlat" OtherKey="IdPlat" Type="point" />
+      <Association Name="user_PlatForm" Member="user" ThisKey="IdUser" OtherKey="IdUser" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.point" Member="points">
+    <Type Name="point">
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IdPlat" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="PlatForm_point" Member="PlatForm" ThisKey="IdPlat" OtherKey="IdPlat" Type="PlatForm" IsForeignKey="true" />
+      <Association Name="user_point" Member="user" ThisKey="IdUser" OtherKey="IdUser" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[user]" Member="users">
+    <Type Name="user">
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PhoneNo" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(8) NOT NULL" CanBeNull="false" />
+      <Column Name="Sex" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Age" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="EnterType" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="user_Con1" Member="Con1s" ThisKey="IdUser" OtherKey="IdUser" Type="Con1" />
+      <Association Name="user_Doctor" Member="Doctors" ThisKey="IdUser" OtherKey="IdUser" Type="Doctor" />
+      <Association Name="user_Donation" Member="Donations" ThisKey="IdUser" OtherKey="IdUser" Type="Donation" />
+      <Association Name="user_PlatForm" Member="PlatForms" ThisKey="IdUser" OtherKey="IdUser" Type="PlatForm" />
+      <Association Name="user_point" Member="points" ThisKey="IdUser" OtherKey="IdUser" Type="point" />
+    </Type>
+  </Table>
+</Database>
